@@ -1,5 +1,5 @@
 {
-  "name": "chatgpt-2",
+  "name": "chatgpt-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
