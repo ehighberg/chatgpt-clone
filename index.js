@@ -1,5 +1,6 @@
 import { config as envconfig } from 'dotenv'
 import { Configuration, OpenAIApi } from "openai"
+import express from 'express'
 
 envconfig()
 
@@ -9,7 +10,11 @@ const configuration = new Configuration({
 })
 const openai = new OpenAIApi(configuration)
 
-async function callApi() {
+
+const app = express()
+const port = 3080
+
+app.post('/', async (req, res) => {
     const response = await openai.createCompletion({
         model: "text-davinci-003",
         prompt: "Say this is a test",
@@ -17,6 +22,11 @@ async function callApi() {
         temperature: 0,
     })
     console.log(response.data.choices[0].text)
-}
+    res.json({
+        data: response.data
+    })
+})
 
-callApi()
+app.listen(port, () => {
+    console.log(`app listening at http://localhost:${port}`)
+})
