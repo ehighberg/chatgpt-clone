@@ -34,3 +34,21 @@
   flex: 1;
   background-color: #343541;
 }
+
+.chat-input-holder {
+  padding: 12px;
+}
+
+.chat-input-textarea {
+  background-color: #40414f;
+  width: 100%;
+  padding: 12px;
+  color: white;
+  font-size: 1.25em;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  box-shadow: 0 0 8px 0 rgba(0,0,0,0.2);
+  overflow-y: hidden;
+  max-height: 2.5em;
+}
