@@ -7,6 +7,17 @@
   top:0;bottom:0;left:0;right:0;
 }
 
+.avatar {
+  background-color: white;
+  border-radius: 50%;
+  width: 40px;
+  height:40px;
+}
+
+.avatar.chatgpt {
+  background-color: #10a37f;
+}
+
 .chatbox {
   flex: 1;
   background-color: #343541;
@@ -32,6 +43,24 @@
   height: calc(1.15rem + 24px);
 }
 
+.chat-log {
+  text-align: left;
+}
+
+.chat-message.chatgpt {
+  background-color: #444654;
+}
+
+.chat-message-center {
+  display: flex;
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 12px 24px;
+}
+
+.message {
+  padding: 12px 40px;
+}
 
 .sidemenu {
   width: 260px;
