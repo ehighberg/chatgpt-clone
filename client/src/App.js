@@ -6,13 +6,18 @@ import { useState } from 'react'
 function App() {
 
   const [input, setInput] = useState('')
-  const [chatLog, setChatLog] = useState([])
+  const [chatLog, setChatLog] = useState([{
+    user: 'chatgpt',
+    message: 'How can I help you today?'
+  }, {
+    user: 'me',
+    message: 'I\'m looking for some answers'
+  }])
 
   async function handleSubmit(e) {
     e.preventDefault()
     setChatLog([...chatLog, { user: 'me', message: `${input}`}])
     setInput("")
-
   }
 
   return (
@@ -25,7 +30,9 @@ function App() {
       </aside>
       <section className="chatbox">
         <div className="chat-log">
-          <ChatMessage message={message}/>
+          {chatLog.map((message, index) => (
+            <ChatMessage key={index} message={message} />
+          ))}
         </div>
         <div className="chat-input-holder">
           <form onSubmit={handleSubmit}>
