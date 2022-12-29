@@ -1,21 +1,29 @@
 import './normalize.css';
 import './App.css';
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function App() {
+  useEffect(() => {
+    getModels()
+  }, [])
 
   const [input, setInput] = useState('')
   const [chatLog, setChatLog] = useState([{
     user: 'chatgpt',
     message: 'How can I help you today?'
-  }, {
-    user: 'me',
-    message: 'I\'m looking for some answers'
   }])
+  const [modelList, setModelList] = useState([])
+  const [currentModel, setCurrentModel] = useState('text-davinci-003')
 
   function clearChat() {
     setChatLog([])
+  }
+
+  async function getModels() {
+    const response = await fetch('http://localhost:3080/models')
+    const data = await response.json()
+    setModelList(data.models.data)
   }
 
   async function handleSubmit(e) {
@@ -29,11 +37,12 @@ function App() {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        message: newLog.map((message) => message.message)
+        message: newLog.map((message) => message.message),
+        currentModel: currentModel
       })
     })
     const data = await response.json()
-    console.log(data.message)
+    // console.log(data.message)
     setChatLog((prevLog) => [...prevLog, {user: 'chatgpt', message: `${data.message}`}])
   }
 
@@ -44,6 +53,12 @@ function App() {
           <span>+</span>
           New Chat
         </div>
+        <div className='model-list'></div>
+        <select onChange={(e) => setCurrentModel(e.target.value)}>
+          {modelList.map((model, index) => (
+            <option key={index} value={model.id}>{model.id}</option>
+          ))}
+        </select>
       </aside>
       <section className="chatbox">
         <div className="chat-log">
