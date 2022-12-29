@@ -16,7 +16,8 @@ function App() {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    setChatLog([...chatLog, { user: 'me', message: `${input}`}])
+    let newLog = [...chatLog, { user: 'me', message: `${input}`}]
+    setChatLog(newLog)
     setInput("")
     const response = await fetch('http://localhost:3080', {
       method: 'POST',
@@ -24,11 +25,12 @@ function App() {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        message: chatLog.map((message) => message.message).join('\n')
+        message: newLog.map((message) => message.message)
       })
     })
     const data = await response.json()
-    console.log(data)
+    console.log(data.message)
+    setChatLog((prevLog) => [...prevLog, {user: 'chatgpt', message: `${data.message}`}])
   }
 
   return (
