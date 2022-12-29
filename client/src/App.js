@@ -14,6 +14,10 @@ function App() {
     message: 'I\'m looking for some answers'
   }])
 
+  function clearChat() {
+    setChatLog([])
+  }
+
   async function handleSubmit(e) {
     e.preventDefault()
     let newLog = [...chatLog, { user: 'me', message: `${input}`}]
@@ -36,7 +40,7 @@ function App() {
   return (
     <div className="App">
       <aside className="sidemenu">
-        <div className="side-menu-button">
+        <div className="side-menu-button" onClick={clearChat}>
           <span>+</span>
           New Chat
         </div>
