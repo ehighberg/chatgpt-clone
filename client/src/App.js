@@ -42,7 +42,7 @@ function App() {
       })
     })
     const data = await response.json()
-    // console.log(data.message)
+    console.log(data.message)
     setChatLog((prevLog) => [...prevLog, {user: 'chatgpt', message: `${data.message}`}])
   }
 

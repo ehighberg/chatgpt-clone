@@ -21,12 +21,14 @@ const port = 3080
 
 app.post('/', async (req, res) => {
     const { message, currentModel } = req.body
+    // console.log(message)
     const response = await openai.createCompletion({
         model: `${currentModel}`,
         prompt: `${message}`,
-        max_tokens: 20,
+        max_tokens: 100,
         temperature: 0.5,
     })
+    // console.log(response.data.choices[0].text)
     res.json({
         message: response.data.choices[0].text
     })
